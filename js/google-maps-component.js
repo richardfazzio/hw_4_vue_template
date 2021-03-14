@@ -4,7 +4,7 @@ const GoogleMap = Vue.extend({
         // Required props
         lat: Number,
         lon: Number,
-        // Default values for heigh + width + zoom, can overwrite if passed as prop.
+        // Default values for height + width + zoom, can overwrite if passed as props.
         zoom: {
             default: 12,
             type: Number
