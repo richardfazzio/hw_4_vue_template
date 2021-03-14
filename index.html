@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+        integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+        integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+        crossorigin="anonymous"></script>
+
+    <!-- Import Vue from cdn -->
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.6.12"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
+        integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
+        crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+        integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
+        crossorigin="anonymous"></script>
+        <script src="./cordova.js"></script>
+    <link rel="stylesheet" href="./css/spa.css">
+</head>
+
+<body>
+    <!-- Bind main Vue to id app -->
+    <div id="app">
+        <div class="jumbotron jumbotron-fluid cent bg-secondary text-light">
+            <h1>Template Weather Map App</h1>
+            <p class="lead">Using VueJs</p>
+        </div>
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-lg-12 col-lg-offset-12 cent mb-3">
+                    <div class="dropdown show mt-3 mb-3">
+                        <div class="d-flex justify-content-center align-items-center mb-3">
+                            Get current location:
+                            <input type="image" @click="getCurrentLocation" src="./res/button.png" alt="Submit" width="50" height="50" id="locbutton">
+                        </div>
+                        <a class="btn btn-secondary dropdown-toggle" href="#" role="button" id="dropdownMenuLink"
+                            data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            Get weather by: {{getWeatherBy.value}}
+                        </a>
+
+                        <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+                            <a class="dropdown-item" v-for="option in getByOptions"
+                                @click="setGetByWeatherType(option); clearInput()">{{option.text}}</a>
+                        </div>
+                    </div>
+                    <input v-if="getWeatherBy.value !== 'gps'" :placeholder="'Enter ' + getWeatherBy.text" v-model="inp1"></input>
+                    <input placeholder="Enter lattitude" v-if="getWeatherBy.value === 'gps'" v-model="inp1"></input>
+                    <input placeholder="Enter longitude" v-if="getWeatherBy.value === 'gps'" v-model="inp2"></input>
+                    <button class="btn btn-secondary" @click="getWeatherData">Search</button>
+                </div>
+            </div>
+            <div class="row d-flex justify-content-center align-items-center">
+                <!-- Google Map Component  -->
+                <!-- Pass the latitude / longitude as props, can also pass height / width / zoom, they have defaults in components -->
+                <!-- Only renders if weatherData is not null / falsy -->
+                <google-map v-if="weatherData" :lat="weatherData.coord.lat" :lon="weatherData.coord.lon"></google-map>
+            </div>
+            <div class="d-flex justify-content-center align-items-center" v-if="weatherData">
+                <table class="table table-dark weather-table">
+                    <tbody>
+                        <tr>
+                            <th scope="row">Location</th>
+                            <td>{{weatherData.name}}</td>
+                        </tr>
+                        <tr>
+                            <th scope="row">Country</th>
+                            <td>{{weatherData.sys.country}}</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div class="row m-auto pt-4 pb-5" v-if="weatherData">
+                <div class="col d-flex justify-content-center align-items-center">Remove Weather Data:
+                    <button class="btn btn-danger ml-3" @click="deleteWeatherData">Delete</button>
+                </div>
+            </div>
+        </div>
+        <script src="./js/google-maps-component.js"></script>
+        <script src="./js/main.js"></script>
+</body>
+
+</html>
