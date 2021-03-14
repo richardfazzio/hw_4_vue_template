@@ -4,7 +4,6 @@ const app = new Vue({
 	data: {
 		inp1: '',
 		inp2: '', // inp2 is used for longitude if it is chosen
-		getWeatherMap: false,
 		weatherMap: null,
 		WEATHER_API_KEY: '[YOUR_WEATHER_API_KEY]',
 		weatherData: null,
