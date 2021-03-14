@@ -20,7 +20,7 @@ const GoogleMap = Vue.extend({
     },
     data() {
         return {
-            API_KEY: 'YOU_GOOGLE_API_KEY' //PUT YOUR API KEY HERE
+            API_KEY: 'YOUR_GOOGLE_API_KEY' //PUT YOUR API KEY HERE
         }
     },
     computed: {

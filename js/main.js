@@ -6,7 +6,7 @@ const app = new Vue({
 		inp2: '', // inp2 is used for longitude if it is chosen
 		getWeatherMap: false,
 		weatherMap: null,
-		WEATHER_API_KEY: '[YOU_WEATHER_API_KEY]',
+		WEATHER_API_KEY: '[YOUR_WEATHER_API_KEY]',
 		weatherData: null,
 		getWeatherBy: { text: 'Zip Code', value: 'zip' },
 		getByOptions: [
